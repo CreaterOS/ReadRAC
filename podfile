@@ -1,0 +1,7 @@
+use_frameworks!
+
+target "ReadReativeCocoa" do
+ 
+pod 'ReactiveCocoa', '2.1.8'
+ 
+end
