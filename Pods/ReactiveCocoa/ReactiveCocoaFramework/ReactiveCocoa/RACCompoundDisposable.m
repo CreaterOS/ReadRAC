@@ -70,6 +70,9 @@ static CFMutableArrayRef RACCreateDisposablesArray(void) {
 
 #pragma mark Lifecycle
 
+/**
+ * 创建销毁类
+ */
 + (instancetype)compoundDisposable {
 	return [[self alloc] initWithDisposables:nil];
 }
@@ -83,11 +86,13 @@ static CFMutableArrayRef RACCreateDisposablesArray(void) {
 	if (self == nil) return nil;
 
 	#if RACCompoundDisposableInlineCount
+    /* 枚举otherDisposables里面的内容 */
 	[otherDisposables enumerateObjectsUsingBlock:^(RACDisposable *disposable, NSUInteger index, BOOL *stop) {
 		_inlineDisposables[index] = disposable;
 
 		// Stop after this iteration if we've reached the end of the inlined
 		// array.
+        /* 如果到达内联数组的末尾，请在此迭代后停止 */
 		if (index == RACCompoundDisposableInlineCount - 1) *stop = YES;
 	}];
 	#endif

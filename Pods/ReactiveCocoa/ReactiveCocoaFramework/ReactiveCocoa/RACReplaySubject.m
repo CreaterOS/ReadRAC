@@ -82,9 +82,12 @@ const NSUInteger RACReplaySubjectUnlimitedCapacity = NSUIntegerMax;
 }
 
 #pragma mark RACSubscriber
-
+/**
+ * RACReplaySubject发送消息
+ */
 - (void)sendNext:(id)value {
 	@synchronized (self) {
+        /* 利用可变数组保存接受到的消息 */
 		[self.valuesReceived addObject:value ?: RACTupleNil.tupleNil];
 		[super sendNext:value];
 		

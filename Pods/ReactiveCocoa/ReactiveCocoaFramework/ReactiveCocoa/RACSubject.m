@@ -96,7 +96,9 @@
 }
 
 #pragma mark RACSubscriber
-
+/**
+ * RAC发送信息
+ */
 - (void)sendNext:(id)value {
 	[self enumerateSubscribersUsingBlock:^(id<RACSubscriber> subscriber) {
 		[subscriber sendNext:value];

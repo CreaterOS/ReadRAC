@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
+    [self RACSubject];
 }
 
 - (void)RACSignal{
@@ -26,6 +26,7 @@
     RACSignal *singal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         //3.发送信号
         [subscriber sendNext:@"1"];
+        [subscriber sendNext:@"2"];
         [subscriber sendCompleted];
         
         return [RACDisposable disposableWithBlock:^{
@@ -45,11 +46,22 @@
     
     //2.订阅信号
     [subject subscribeNext:^(id x) {
-        NSLog(@"%@",x);
+        NSLog(@"订阅者1:%@",x);
     }];
     
     //3.发送信号
     [subject sendNext:@"1"];
+    
+    [subject subscribeNext:^(id x) {
+        NSLog(@"订阅者2:%@",x);
+    }];
+    [subject sendNext:@"2"];
+    
+    [subject subscribeNext:^(id x) {
+        NSLog(@"订阅者3:%@",x);
+    }];
+    [subject sendNext:@"3"];
+    
     [subject sendCompleted];
 }
 
@@ -72,6 +84,7 @@
     [numbers.rac_sequence.signal subscribeNext:^(id x) {
         NSLog(@"%@",x);
     }];
+
     RACSequence *seq = numbers.rac_sequence;
     NSLog(@"%@",seq.head);
     seq.name = @"CreaterOS";

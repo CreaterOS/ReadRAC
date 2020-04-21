@@ -30,7 +30,6 @@
  * 传入的参数是一个Block块
  */
 + (RACSignal *)createSignal:(RACDisposable * (^)(id<RACSubscriber> subscriber))didSubscribe {
-//    NSLog(@"didSubscribe is %@",didSubscribe);
 	return [RACDynamicSignal createSignal:didSubscribe];
 }
 
